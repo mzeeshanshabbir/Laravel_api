@@ -21,27 +21,15 @@ class CustomerController extends Controller
         $filter = new CustomersFilter();
         $filter_Items = $filter->transform($request);
 
-        if(count($filter_Items) == 0) {
-            return new  CustomerCollection(Customer::paginate());
-        }else{
-            return new CustomerCollection(Customer::where($filter_Items)->paginate());
+        $includeInvoices = $request->query('includeInvoices');
+
+        $customers = Customer::where($filter_Items);
+
+        if ($includeInvoices){
+            $customers = $customers->with('invoices');
         }
 
-
-
-
-//        $filter = new CustomersFilter();
-//        $filter_Items = $filter->transform($request);
-//
-//        $includeInvoices = $request->query('includeInvoices');
-//
-//        $customers = Customer::where($filter_Items);
-//
-//        if ($includeInvoices){
-//            $customers = $customers->with('invoices');
-//        }
-//
-//        return new CustomerCollection($customers->paginate()->appends($request->query()));
+        return new CustomerCollection($customers->paginate()->appends($request->query()));
 
     }
 
