@@ -2,6 +2,7 @@
 namespace App\Filters\V1;
 
 use App\Filters\Apifilter;
+use Illuminate\Http\Request;
 
 class CustomersFilter extends ApiFilter
 {
@@ -29,26 +30,4 @@ class CustomersFilter extends ApiFilter
     ];
 
 
-//    public function transform(Request $request)
-//    {
-//        $eloQuery = [];
-//
-//        foreach ($this->safeparms as $parm => $operators){
-//            $query = $request->query($parm);
-//
-//           if(!isset($query)) {
-//               continue;
-//           }
-//
-//            $column = $this->columnMap[$parm] ?? $parm;
-//
-//            foreach ($operators as $operator) {
-//                if(isset($query[$operator])) {
-//                    $eloQuery[] = [$column,$this->operatorMap[$operator],$query[$operator]];
-//                }
-//            }
-//        }
-//
-//        return $eloQuery;
-//    }
 }
